@@ -1,0 +1,6 @@
+[submodule "venhancer"]
+	path = venhancer
+	url = https://github.com/Red-Fairy/venhancer.git
+[submodule "mega-sam"]
+	path = mega-sam
+	url = https://github.com/Red-Fairy/mega-sam.git

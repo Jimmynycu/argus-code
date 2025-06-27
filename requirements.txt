@@ -1,0 +1,65 @@
+bitsandbytes
+diffusers>=0.30.3
+transformers>=4.45.2
+huggingface_hub
+hf_transfer>=0.1.8
+peft>=0.12.0
+decord>=0.6.0
+wandb
+pandas
+sentencepiece>=0.2.0
+imageio-ffmpeg>=0.5.1
+numpy==1.26.3
+accelerate
+deepspeed
+opencv-python
+timm
+einops
+pyequilib
+scikit-learn
+roma
+gradio
+matplotlib
+tqdm
+scipy==1.15.3
+trimesh
+tensorboard
+pillow-heif  # add heif/heic image support
+pyrender  # for rendering depths in scannetpp
+kapture  # for visloc data loading
+kapture-localization
+numpy-quaternion
+pycolmap  # for pnp
+poselib  # for pnp
+cython
+scikit-image
+scikit-video
+facexlib
+gfpgan
+Pillow
+prdc
+piq
+# for venhancer
+easydict
+torchsde
+fairscale
+open_clip_torch==2.24.0
+seaborn
+# should have latest torch version to directly install with pip
+# xformers, otherwise install from source
+
+# for mega-sam
+# lietorch
+viser
+pyliblzfse
+tyro
+
+# please follow the instructions below to install faiss-gpu when running gradio demo
+# conda install -c pytorch -c nvidia faiss-gpu=1.8.0
+# git clone https://github.com/jenicek/asmk
+# cd asmk/cython/
+# cythonize *.pyx
+# cd ..
+# pip install . 
+# cd ..
+
