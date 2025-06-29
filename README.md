@@ -6,7 +6,7 @@
     <a href="https://arxiv.org/abs/2504.07940" target="_blank">
     <img src="https://img.shields.io/badge/Paper-ICCV 2025-red" alt="Paper"/></a>
     <a href="https://red-fairy.github.io/argus/" target="_blank">
-    <img src="https://img.shields.io/badge/Project Page-blue" alt="Project Page"/></a>
+    <img src="https://img.shields.io/badge/Demo-Project Page-blue" alt="Project Page"/></a>
 </div>
 
 ---
@@ -55,8 +55,6 @@ If you already cloned the repo without submodules:
 git submodule update --init --recursive
 ```
 
----
-
 ### 2. 360° Video Generation (`360VG` environment)
 
 - Create a conda environment named `360VG`.
@@ -65,8 +63,6 @@ git submodule update --init --recursive
 
 **Note:**  
 Before installing the other packages, install `numpy<2` to ensure compatibility with `faiss`.
-
----
 
 ### 3. Camera Trajectory Prediction
 
@@ -100,8 +96,6 @@ Follow the instructions in the [MegaSaM repository](https://github.com/mega-sam/
 pip install viser pyliblzfse
 ```
 
----
-
 ### 4. Video Enhancement (`venhancer` environment)
 
 We recommend a separate conda environment named `venhancer`. Refer to [VEnhancer](https://github.com/Vchitect/VEnhancer) to set up the enhancement pipeline.
@@ -130,8 +124,6 @@ python gradio_demo.py \
 ```
 
 You can configure generation parameters, select calibration methods, and enable enhancement through the UI.
-
----
 
 ### Option 2: Command Line Interface
 
