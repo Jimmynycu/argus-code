@@ -174,22 +174,32 @@ def enable_button(video_input):
 		return gr.Button(interactive=False)
 
 args = argparse.Namespace(
-	val_save_folder='gradio_output',
-	unet_path='./checkpoints/pretrained-weights',
-	pretrained_model_name_or_path='stabilityai/stable-video-diffusion-img2vid',
-	calibration_model_path='naver/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric',
-	calibration_img_size=512,
-	frame_rate=5.0,
-	fixed_start_frame=True,
-	blend_decoding_ratio=16,
-	rotation_during_inference=True,
-	inference_final_rotation=0,
-	extended_decoding=True,
-	num_frames=25,
-	camera_pose_env='mega_sam',
-	mono_depth_env='mega_sam',
-	venhancer_env='venhancer',
+    val_save_folder='gradio_output',
+    unet_path='./checkpoints/pretrained-weights',
+    pretrained_model_name_or_path='stabilityai/stable-video-diffusion-img2vid',
+    calibration_model_path='naver/MASt3R_ViTLarge_BaseDecoder_512_catmlpdpt_metric',
+    calibration_img_size=512,
+    frame_rate=5.0,
+    fixed_start_frame=True,
+    blend_decoding_ratio=16,
+    rotation_during_inference=True,
+    inference_final_rotation=0,
+    extended_decoding=True,
+    num_frames=25,
+    camera_pose_env=None,  # placeholder for CLI arg
+    mono_depth_env=None,   # placeholder for CLI arg
+    venhancer_env=None     # placeholder for CLI arg
 )
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--camera_pose_env', type=str, default='mega_sam')
+parser.add_argument('--mono_depth_env', type=str, default='mega_sam')
+parser.add_argument('--venhancer_env', type=str, default='venhancer')
+cli_args = parser.parse_args()
+
+args.camera_pose_env = cli_args.camera_pose_env
+args.mono_depth_env = cli_args.mono_depth_env
+args.venhancer_env = cli_args.venhancer_env
 
 accelerator = Accelerator(mixed_precision='no')
 weight_dtype = torch.float32
