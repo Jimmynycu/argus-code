@@ -137,3 +137,16 @@ bash scripts/test/inference.sh \
   [GUIDANCE_SCALE] \
   [NUM_INFERENCE_STEPS]
 ```
+
+## 📖 Citation
+
+If you find our work useful for your research or projects, please cite our paper:
+
+```bibtex
+@inproceedings{luo2025beyond,
+  title     = {Beyond the Frame: Generating 360° Panoramic Videos from Perspective Videos},
+  author    = {Luo, Rundong and Wallingford, Matthew and Farhadi, Ali and Snavely, Noah and Ma, Wei-Chiu},
+  booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2504.07940}
+}
