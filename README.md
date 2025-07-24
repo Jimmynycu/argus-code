@@ -29,7 +29,7 @@ This is the official repository for the ICCV 2025 paper:
 
 - ✅ Inference code and pretrained models released  
 - ⬜ Training code (coming soon)  
-- ⬜ Dataset (coming soon)
+- ✅ Dataset release
 
 ---
 
@@ -137,6 +137,29 @@ bash scripts/test/inference.sh \
   [GUIDANCE_SCALE] \
   [NUM_INFERENCE_STEPS]
 ```
+
+## 📦 Data Preparation
+
+### 1. Download the Videos
+
+Download the videos listed in [`process_data/clips_info.jsonl`](process_data/clips_info.jsonl).  
+We recommend using the [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) tool to download the videos from YouTube.
+
+### 2. Segment Videos into 10-Second Clips
+
+Split each downloaded video into 10-second clips.  
+The start and end frames of each clip are specified in [`process_data/clips_info.jsonl`](process_data/clips_info.jsonl).
+
+### 3. Training Clip Selection
+
+The clips used for training are listed in two files:
+
+- [`process_data/clips_filtered.txt`](process_data/clips_filtered.txt): used for **Stage 1** training.
+- [`process_data/clips_filtered_high_quality.txt`](process_data/clips_filtered_high_quality.txt): used for **Stage 2** training with stricter filtering criteria.
+
+Each line in these files is formatted as: `video_category\tvideo_id\tclip_id`.
+
+### 4. Training
 
 ## 📖 Citation
 
