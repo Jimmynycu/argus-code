@@ -28,7 +28,7 @@ This is the official repository for the ICCV 2025 paper:
 ## ✅ Checklist
 
 - ✅ Inference code and pretrained models released  
-- ⬜ Training code (coming soon)  
+- ✅ Training code  
 - ✅ Dataset release
 
 ---
@@ -159,7 +159,36 @@ The clips used for training are listed in two files:
 
 Each line in these files is formatted as: `video_category\tvideo_id\tclip_id`.
 
-### 4. Training
+## 📊 Training
+
+Training Instructions
+
+### Stage 1: Initial Training at 384×768 Resolution
+
+Begin by training the model using video clips at a resolution of 384×768.  
+Before running the script, update the following environment variables in scripts/train/train.sh:
+
+- TRAIN_DATASET_PATH and VAL_DATASET_PATH: directories containing the training and validation video clips.
+- TRAIN_CLIP_FILE_PATH and VAL_CLIP_FILE_PATH: text files listing the clip metadata for training and validation, formatted as: `video_category\tvideo_id\tclip_id`.
+
+To launch the training process:
+
+```bash
+bash scripts/train/train.sh [EXPERIMENT_NAME] 384 100000
+```
+
+### Stage 2: Fine-Tuning at 512×1024 Resolution
+
+Next, fine-tune the model using high-quality clips at a resolution of 512×1024.  
+Again, modify the same four paths in scripts/train/train.sh as described above.
+
+Additionally, provide the path to the pretrained UNet model from Stage 1.
+
+To start Stage 2 training:
+
+```bash
+bash scripts/train/train.sh [EXPERIMENT_NAME] 512 20000 [PRETRAIN_UNET_PATH_OF_STAGE_1]
+```
 
 ## 📖 Citation
 

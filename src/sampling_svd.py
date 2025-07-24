@@ -918,16 +918,6 @@ def sample_svd(args, accelerator, pipeline,
 		concatenated_video = np.concatenate([conditional_video_equi, generated_frames], axis=1) # (T, 3H, W, C)
 		mimsave(save_path, concatenated_video, fps=fps)
 
-	# save results w/o extended decoding
-	# del generated_frames, conditional_video, conditional_video_equi, mask, conditional_video_pers
-	# generated_frames_no_extended = pipeline.decode_latents(generated_latents, args.num_frames, decode_chunk_size=num_frames_batch, extended_decoding=False)
-	# generated_frames_no_extended = ((generated_frames_no_extended.clamp(-1, 1) + 1) * 127.5).cpu().to(torch.float32).numpy().astype(np.uint8)
-	# video_writer = cv2.VideoWriter(out_file_path.replace(ext, f"_output_no_extended_fov{fov_x:.0f}_hw{hw_ratio:.2f}.mp4"), 
-	# 								cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
-	# for i in range(T):
-	# 	video_writer.write(cv2.cvtColor(generated_frames_no_extended[0, :, i].transpose(1, 2, 0), cv2.COLOR_RGB2BGR))
-	# video_writer.release()
-
 	if narrow: # transform the narrow video into perspective format in orignal fov
 		save_path = out_file_path.replace(ext, f"_narrow_pers_fov{fov_x:.0f}_hw{hw_ratio:.2f}.mp4")
 		partial360_to_pers(return_file_path, save_path, fov_x=fov_x, hw_ratio=hw_ratio, width=args.width, height=args.height)
@@ -943,82 +933,3 @@ def sample_svd(args, accelerator, pipeline,
 		return mask, generated_frames
 
 	return return_file_path
-
-
-@torch.no_grad()
-def sample_svd_prepared(args, accelerator, pipeline,
-						weight_dtype,
-						conditional_video_pers: torch.Tensor, # in (T, C, H, W) format, range [-1, 1]
-						conditional_video_equi: torch.Tensor,
-						mask: torch.Tensor,
-						out_file_path: str,
-						width: int = None, height: int = None,
-						guidance_scale: float = 5.0,
-						num_inference_steps=25,
-						fps=7,
-						noise_aug_strength=0.02,
-						inference_final_rotation=0,
-						blend_decoding_ratio=4,
-						extended_decoding=False,
-						rotation_during_inference=False,
-						equirectangular_input=True,
-						return_for_metrics=False,
-						):
-
-	T = conditional_video_equi.shape[0]
-
-	ext = '.'+out_file_path.split('.')[-1]
-	
-	with torch.autocast(str(accelerator.device).replace(":0", ""), enabled=accelerator.mixed_precision != 'no'):
-		generated_frames = pipeline(
-			conditional_video_equi.unsqueeze(0), # (1, T, C, H, W)
-			conditional_images = conditional_video_pers.unsqueeze(0), # (1, T, C, H, W)
-			mask = mask.unsqueeze(0), # (1, T, 1, H, W)
-			height=height,
-			width=width,
-			num_frames=T,
-			decode_chunk_size=None,
-			motion_bucket_id=127,
-			fps=fps,
-			num_inference_steps=num_inference_steps,
-			noise_aug_strength=noise_aug_strength,
-			min_guidance_scale=guidance_scale,
-			max_guidance_scale=guidance_scale,
-			inference_final_rotation=inference_final_rotation,
-			blend_decoding_ratio=blend_decoding_ratio,
-			extended_decoding=extended_decoding,
-			rotation_during_inference=rotation_during_inference,
-		) # [B, C, T, H, W]
-
-	generated_frames = generated_frames.transpose(1, 2).squeeze(0) # (1, T, C, H, W) -> (C, T, H, W)
-	# save the input video
-	video_writer = cv2.VideoWriter(out_file_path.replace('output', 'input'), cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
-	conditional_video_save = ((conditional_video_equi.clamp(-1, 1) + 1) * 127.5).cpu().to(torch.float32).numpy().astype(np.uint8)
-	for i in range(T):
-		video_writer.write(cv2.cvtColor(conditional_video_save[i].transpose(1, 2, 0), cv2.COLOR_RGB2BGR))
-	video_writer.release()
-
-	# save the generated video, RGB -> BGR
-	video_writer = cv2.VideoWriter(out_file_path, cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
-	generated_frames_save = ((generated_frames.clamp(-1, 1) + 1) * 127.5).cpu().to(torch.float32).numpy().astype(np.uint8)
-	for i in range(T):
-		video_writer.write(cv2.cvtColor(generated_frames_save[i].transpose(1, 2, 0), cv2.COLOR_RGB2BGR))
-	video_writer.release()
-
-	# save the input video and the generated video side-by-side
-	video_writer = cv2.VideoWriter(out_file_path.replace('output', 'stack'), cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, 2*height))
-	for i in range(T):
-		frame = np.concatenate([conditional_video_save[i].transpose(1, 2, 0), 
-								generated_frames_save[i].transpose(1, 2, 0)], axis=0)
-		video_writer.write(cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
-	video_writer.release()
-
-
-	del pipeline
-	torch.cuda.empty_cache()
-	gc.collect()
-
-	if return_for_metrics:
-		return mask, generated_frames
-
-	return out_file_path
