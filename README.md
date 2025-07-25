@@ -23,13 +23,13 @@ This is the official repository for the ICCV 2025 paper:
 
 360° videos have emerged as a promising medium to represent our dynamic visual world. Compared to the "tunnel vision" of standard cameras, their borderless field of view offers a more holistic perspective of our surroundings. However, while existing video models excel at producing standard videos, their ability to generate full panoramic videos remains elusive. In this paper, we investigate the task of **video-to-360° generation**: given a perspective video as input, our goal is to generate a full panoramic video that is coherent with the input. Unlike conventional video generation tasks, the output's field of view is significantly larger, and the model is required to have a deep understanding of both the spatial layout of the scene and the dynamics of objects to maintain geometric and dynamic consistency with the input. To address these challenges, we first leverage the abundant 360° videos available online and develop a high-quality data filtering pipeline to curate pairwise training data. We then carefully design a series of geometry- and motion-aware modules to facilitate the learning process and improve the quality of 360° video generation. Experimental results demonstrate that our model can generate realistic and coherent 360° videos from arbitrary, in-the-wild perspective inputs. Additionally, we showcase its potential applications, including video stabilization, camera viewpoint control, and interactive visual question answering.
 
----
+<!-- ---
 
 ## ✅ Checklist
 
 - ✅ Inference code and pretrained models released  
 - ✅ Training code  
-- ✅ Dataset release
+- ✅ Dataset release -->
 
 ---
 
@@ -138,6 +138,8 @@ bash scripts/test/inference.sh \
   [NUM_INFERENCE_STEPS]
 ```
 
+---
+
 ## 📦 Data Preparation
 
 ### 1. Download the Videos
@@ -159,9 +161,9 @@ The clips used for training are listed in two files:
 
 Each line in these files is formatted as: `video_category\tvideo_id\tclip_id`.
 
-## 📊 Training
+---
 
-Training Instructions
+## 📊 Training
 
 ### Stage 1: Initial Training at 384×768 Resolution
 
