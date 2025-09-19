@@ -152,6 +152,14 @@ We recommend using the [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) tool to down
 Split each downloaded video into 10-second clips.  
 The start and end frames of each clip are specified in [`process_data/clips_info.jsonl`](process_data/clips_info.jsonl).
 
+As described in the supplementary material, our data processing pipeline consists of the following steps:
+1.	Format Filtering. We first sample frames and compute the horizontal image gradient along the 180° boundary to verify whether the frame is 360°. We also compute the vertical gradient at the image center to remove videos that are split into two halves.
+2.	Intra-frame Filtering. To detect improperly formatted videos, we compute LPIPS between the left and right halves to filter out 180° videos, and between the top and bottom halves to filter incorrectly formatted 360° videos.
+3.	Inter-frame Filtering. To ensure temporal dynamics, we sample frames at random intervals and compute pixel variance. Static videos with minimal inter-frame variation are discarded. Videos with excessive black pixels are also removed.
+4.	Clip-level filtering. We divide videos into 10-second clips and further filter them by (i) low optical flow magnitude using RAFT, (ii) shot boundary detection with TransNet-v2, and (iii) text detection with DPText-DETR applied to unwrapped perspective views. All these operations are performed on six 90° FoV projections of each video.
+
+We provide sample scripts in [`process_data/pipeline`](process_data/pipeline) to run the data processing pipeline for the first three steps.
+
 ### 3. Training Clip Selection
 
 The clips used for training are listed in two files:

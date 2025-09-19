@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --partition=ma
+#SBATCH --partition=YOUR_PARTITION
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=256
 #SBATCH --mem=1024G
@@ -7,7 +7,7 @@
 #SBATCH --time=72:00:00
 
 # setting the job name and output file
-#SBATCH --job-name="SVD-parallel-training"
+#SBATCH --job-name="YOUR_JOB_NAME"
 #SBATCH --output=logs/%j.out
 
 main_process_port=9905
