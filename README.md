@@ -158,7 +158,7 @@ As described in the supplementary material, our data processing pipeline consist
 3.	Inter-frame Filtering. To ensure temporal dynamics, we sample frames at random intervals and compute pixel variance. Static videos with minimal inter-frame variation are discarded. Videos with excessive black pixels are also removed.
 4.	Clip-level filtering. We divide videos into 10-second clips and further filter them by (i) low optical flow magnitude using RAFT, (ii) shot boundary detection with TransNet-v2, and (iii) text detection with DPText-DETR applied to unwrapped perspective views. All these operations are performed on six 90° FoV projections of each video.
 
-We provide sample scripts in [`process_data/pipeline`](process_data/pipeline) to run the data processing pipeline for the first three steps.
+We provide sample scripts in [`process_data/pipeline`](process_data/pipeline) to run the data processing pipeline for the first three steps. **You don't need to run the pipeline if you are using our provided clips.**
 
 ### 3. Training Clip Selection
 
