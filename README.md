@@ -200,6 +200,10 @@ To start Stage 2 training:
 bash scripts/train/train.sh [EXPERIMENT_NAME] 512 20000 [PRETRAIN_UNET_PATH_OF_STAGE_1]
 ```
 
+## 📊 Evaluation
+
+The 101 evaluation clips and the real/simulation camera trajectories can be found here: [Google Drive](https://drive.google.com/drive/folders/1F_RyoDz2r3XSBEzII0Un53ErTk3b8V8S?usp=sharing). For the trajectories, the FOVs are in degrees and the row/pitch/yaw are in radians. In our convention, the positive yaw is rotating rightward, the positive pitch is looking upward, and the positive row is tilting rightward.
+
 ## 📖 Citation
 
 If you find our work useful for your research or projects, please cite our paper:
