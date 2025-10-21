@@ -11,6 +11,16 @@
 
 ---
 
+## 🚀 Interactive Showcase
+
+For a quick, interactive demonstration of this project, you can run our showcase notebook directly in Google Colab. This notebook handles all setup and provides options for both an interactive Gradio demo and automated processing of a video from a URL.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/YOUR_USERNAME/YOUR_REPOSITORY/blob/main/Show_case.ipynb)
+
+**Important:** After forking or cloning this repository to your own GitHub account, you must edit this `README.md` file and replace `YOUR_USERNAME` and `YOUR_REPOSITORY` in the link above with your actual GitHub username and repository name for the button to work correctly.
+
+---
+
 This is the official repository for the ICCV 2025 paper:  
 **Beyond the Frame: Generating 360° Panoramic Videos from Perspective Videos**
 
