@@ -17,8 +17,6 @@ For a quick, interactive demonstration of this project, you can run our showcase
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jimmynycu/argus-code/blob/main/Show_case.ipynb)
 
-**Important:** After forking or cloning this repository to your own GitHub account, you must edit this `README.md` file and replace `YOUR_USERNAME` and `YOUR_REPOSITORY` in the link above with your actual GitHub username and repository name for the button to work correctly.
-
 ---
 
 This is the official repository for the ICCV 2025 paper:  
