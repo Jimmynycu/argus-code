@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 from diffusers import UNetSpatioTemporalConditionModel, AutoencoderKLTemporalDecoder
 import numpy as np
 import argparse
